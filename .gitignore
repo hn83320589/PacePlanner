@@ -486,3 +486,6 @@ $RECYCLE.BIN/
 # '*.app' above also matches the PacePlanner.App project folder on Windows
 !**/PacePlanner.App/
 
+
+# E2E test output
+tests/e2e/out/
