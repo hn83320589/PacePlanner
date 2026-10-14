@@ -17,6 +17,9 @@
     <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <!-- MVVMTK0045: field-based [ObservableProperty] is not WinRT-AOT friendly. The app is not
+         published with Native AOT, and partial-property support would require LangVersion=preview. -->
+    <NoWarn>$(NoWarn);MVVMTK0045</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
