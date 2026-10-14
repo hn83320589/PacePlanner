@@ -37,6 +37,17 @@ public class ExportTests
         Assert.StartsWith("43,42.000,42.195,0.195,", lines[^1]);
     }
 
+    [Fact]
+    public void Csv_DurationsAreHMmSsSoExcelReadsMinutesNotHours()
+    {
+        var fields = CsvExporter.ToText(Report()).Split("\r\n")[1].Split(',');
+
+        Assert.Matches(@"^\d:\d\d$", fields[5]);              // pace stays m:ss
+        Assert.Matches(@"^0:0\d:\d\d$", fields[6]);           // run time
+        Assert.Matches(@"^0:0\d:\d\d$", fields[8]);           // segment time
+        Assert.Equal(fields[8], fields[9]);                   // first cumulative equals first segment
+    }
+
     [Theory]
     [InlineData("plain", "plain")]
     [InlineData("a,b", "\"a,b\"")]
