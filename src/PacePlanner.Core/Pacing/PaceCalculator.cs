@@ -75,21 +75,22 @@ public static class PaceCalculator
     }
 
     /// <summary>
-    /// Rounds values to integers whose sum is exactly <paramref name="total"/> (largest remainder method),
-    /// so every displayed split adds up to the target time.
+    /// Rounds values to integers whose sum is exactly <paramref name="total"/>. The running (cumulative)
+    /// sum is rounded to the nearest second and each item is the difference of consecutive cumulative
+    /// values, so every split-clock time is the ideal time rounded, each item is within 1 s of its raw
+    /// value, and the unavoidable ±1 s adjustments are spread evenly instead of bunching up.
     /// </summary>
     public static int[] RoundPreservingTotal(IReadOnlyList<double> values, int total)
     {
-        var result = values.Select(v => (int)Math.Floor(v)).ToArray();
-        var remainder = total - result.Sum();
-        var order = values
-            .Select((v, i) => (Fraction: v - Math.Floor(v), Index: i))
-            .OrderByDescending(x => x.Fraction)
-            .ThenBy(x => x.Index)
-            .ToList();
-        for (var k = 0; k < remainder; k++)
+        var result = new int[values.Count];
+        double exact = 0;
+        var previous = 0;
+        for (var i = 0; i < values.Count; i++)
         {
-            result[order[k % order.Count].Index]++;
+            exact += values[i];
+            var cumulative = i == values.Count - 1 ? total : (int)Math.Round(exact, MidpointRounding.AwayFromZero);
+            result[i] = cumulative - previous;
+            previous = cumulative;
         }
 
         return result;

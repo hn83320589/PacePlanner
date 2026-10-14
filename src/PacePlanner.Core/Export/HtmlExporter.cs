@@ -95,7 +95,7 @@ public static class HtmlExporter
             sb.Append("</tbody></table>\n");
         }
 
-        sb.Append("</div>\n<div class=\"legend\">配速＝跑步配速（分:秒/km）；用時含該段補給停留；橘色列為有補給站的路段。</div>\n</div>\n</body>\n</html>\n");
+        sb.Append("</div>\n<div class=\"legend\">配速＝跑步配速（分:秒/km）；用時含該段補給停留；橘色列為有補給站的路段。累計時間為理想時間四捨五入到秒，個別路段用時可能與配速相差 1 秒。</div>\n</div>\n</body>\n</html>\n");
         return sb.ToString();
     }
 

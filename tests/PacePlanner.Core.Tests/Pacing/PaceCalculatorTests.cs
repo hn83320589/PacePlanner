@@ -62,7 +62,7 @@ public class PaceCalculatorTests
         var pace = plan.Segments[0].PaceSecondsPerKm;
         Assert.All(plan.Segments, s => Assert.Equal(pace, s.PaceSecondsPerKm, 9));
         Assert.Equal(ThreeThirty / RaceDistances.MarathonKm, pace, 9);
-        Assert.Equal(pace * 0.195, plan.Segments[^1].DurationSeconds, 0.5 + 1e-9);
+        Assert.Equal(pace * 0.195, plan.Segments[^1].DurationSeconds, 1.0);
         Assert.Equal(ThreeThirty, plan.Segments[^1].CumulativeSeconds);
         Assert.Equal(ThreeThirty, plan.Segments.Sum(s => s.DurationSeconds));
         AssertCumulativeConsistent(plan);
@@ -198,10 +198,20 @@ public class PaceCalculatorTests
     }
 
     [Fact]
-    public void LargestRemainder_PreservesTotal()
+    public void RoundPreservingTotal_RoundsCumulativeSoAdjustmentsAreSpread()
     {
         var rounded = PaceCalculator.RoundPreservingTotal([1.4, 1.4, 1.2], 4);
 
-        Assert.Equal(new[] { 2, 1, 1 }, rounded);
+        Assert.Equal(new[] { 1, 2, 1 }, rounded); // cumulative 1.4→1, 2.8→3, 4.0→4
+    }
+
+    [Fact]
+    public void Even_CumulativeColumnIsIdealTimeRoundedToNearestSecond()
+    {
+        var plan = PaceCalculator.Calculate(null, Settings());
+
+        var pace = ThreeThirty / RaceDistances.MarathonKm;
+        Assert.All(plan.Segments, s => Assert.Equal(Math.Round(pace * s.EndKm, MidpointRounding.AwayFromZero), s.CumulativeSeconds));
+        Assert.All(plan.Segments.SkipLast(1), s => Assert.InRange(s.RunSeconds, 298, 299));
     }
 }

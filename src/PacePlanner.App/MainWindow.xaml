@@ -143,7 +143,11 @@
                 <Canvas x:Name="ProfileCanvas" SizeChanged="ProfileCanvas_SizeChanged" />
             </Border>
 
-            <TextBlock Grid.Row="3" Text="{x:Bind ViewModel.SummaryText, Mode=OneWay}" TextWrapping="Wrap" Style="{StaticResource BodyStrongTextBlockStyle}" />
+            <StackPanel Grid.Row="3" Spacing="2">
+                <TextBlock Text="{x:Bind ViewModel.SummaryText, Mode=OneWay}" TextWrapping="Wrap" Style="{StaticResource BodyStrongTextBlockStyle}" />
+                <TextBlock Text="累計時間為理想時間四捨五入到秒，為使總時間精確等於目標，個別路段用時可能與配速相差 1 秒。橘色列為補給站路段。"
+                           TextWrapping="Wrap" Opacity="0.6" FontSize="12" />
+            </StackPanel>
 
             <Grid Grid.Row="4" Padding="12,4" Background="{ThemeResource LayerFillColorDefaultBrush}" ColumnSpacing="4">
                 <Grid.ColumnDefinitions>
