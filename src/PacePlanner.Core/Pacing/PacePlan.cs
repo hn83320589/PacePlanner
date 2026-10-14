@@ -1,3 +1,5 @@
+using PacePlanner.Core.Course;
+
 namespace PacePlanner.Core.Pacing;
 
 /// <summary>One row of the split table.</summary>
@@ -22,11 +24,13 @@ public sealed record PaceSegment(
     public int DurationSeconds => RunSeconds + AidStopSeconds;
 }
 
+/// <param name="Course">The course scaled to the plan distance; null when planning without a course.</param>
 public sealed record PacePlan(
     PlanSettings Settings,
     IReadOnlyList<PaceSegment> Segments,
     IReadOnlyList<double> AidStationKms,
-    int RunningSeconds)
+    int RunningSeconds,
+    CourseProfile? Course)
 {
     public int TotalSeconds => Segments.Count == 0 ? 0 : Segments[^1].CumulativeSeconds;
 

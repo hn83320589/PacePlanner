@@ -60,7 +60,7 @@ public static class PaceCalculator
             segments.Add(new PaceSegment(i + 1, start, end, grades[i], paces[i], runTimes[i], stops, cumulative));
         }
 
-        return new PacePlan(settings, segments, aidKms, runningSeconds);
+        return new PacePlan(settings, segments, aidKms, runningSeconds, scaled);
     }
 
     /// <summary>Time multiplier for a grade (in percent) relative to flat ground.</summary>
