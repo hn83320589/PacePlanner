@@ -482,3 +482,7 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# '*.app' above also matches the PacePlanner.App project folder on Windows
+!**/PacePlanner.App/
+

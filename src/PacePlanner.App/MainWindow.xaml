@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="PacePlanner.App.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="賽道配速規劃師 PacePlanner">
+    <TextBlock Text="PacePlanner" Margin="24" />
+</Window>
