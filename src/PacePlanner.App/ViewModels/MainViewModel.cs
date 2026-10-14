@@ -148,7 +148,11 @@ public sealed partial class MainViewModel : ObservableObject
         }
     }
 
-    public void ReportUnexpectedError(Exception ex) => ShowError($"發生未預期的錯誤：{ex.Message}");
+    public void ReportUnexpectedError(Exception ex)
+    {
+        var detail = string.IsNullOrWhiteSpace(ex.Message) ? "（無訊息）" : ex.Message.Trim();
+        ShowError($"發生未預期的錯誤：{detail}［{ex.GetType().Name}, 0x{ex.HResult:X8}］");
+    }
 
     [RelayCommand]
     private void Save()

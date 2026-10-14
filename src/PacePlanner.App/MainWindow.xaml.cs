@@ -10,7 +10,7 @@ using PacePlanner.App.ViewModels;
 using PacePlanner.Core.Charts;
 using PacePlanner.Data;
 using Windows.Foundation;
-using Windows.Storage.Pickers;
+using Microsoft.Windows.Storage.Pickers;
 using Windows.UI;
 
 namespace PacePlanner.App;
@@ -40,23 +40,26 @@ public sealed partial class MainWindow : Window, IUiServices
 
     public static string Range(string startKm, string endKm) => $"{startKm} – {endKm}";
 
+    // Windows App SDK pickers (not Windows.Storage.Pickers) also work for unpackaged and elevated processes.
     public async Task<string?> PickGpxFileAsync()
     {
-        var picker = new FileOpenPicker { SuggestedStartLocation = PickerLocationId.DocumentsLibrary };
+        var picker = new FileOpenPicker(AppWindow.Id) { SuggestedStartLocation = PickerLocationId.DocumentsLibrary };
         picker.FileTypeFilter.Add(".gpx");
         picker.FileTypeFilter.Add("*");
-        WinRT.Interop.InitializeWithWindow.Initialize(picker, WinRT.Interop.WindowNative.GetWindowHandle(this));
-        var file = await picker.PickSingleFileAsync();
-        return file?.Path;
+        var result = await picker.PickSingleFileAsync();
+        return result?.Path;
     }
 
     public async Task<string?> PickSaveFileAsync(string suggestedName, string extension, string description)
     {
-        var picker = new FileSavePicker { SuggestedFileName = suggestedName, SuggestedStartLocation = PickerLocationId.DocumentsLibrary };
+        var picker = new FileSavePicker(AppWindow.Id)
+        {
+            SuggestedFileName = suggestedName,
+            SuggestedStartLocation = PickerLocationId.DocumentsLibrary,
+        };
         picker.FileTypeChoices.Add(description, [extension]);
-        WinRT.Interop.InitializeWithWindow.Initialize(picker, WinRT.Interop.WindowNative.GetWindowHandle(this));
-        var file = await picker.PickSaveFileAsync();
-        return file?.Path;
+        var result = await picker.PickSaveFileAsync();
+        return result?.Path;
     }
 
     public async Task<string?> PromptTextAsync(string title, string initialText)
