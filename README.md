@@ -1,6 +1,6 @@
 # 賽道配速規劃師 PacePlanner
 
-[![CI](https://github.com/<OWNER>/<REPO>/actions/workflows/ci.yml/badge.svg)](https://github.com/<OWNER>/<REPO>/actions/workflows/ci.yml)
+[![CI](https://github.com/hn83320589/PacePlanner/actions/workflows/ci.yml/badge.svg)](https://github.com/hn83320589/PacePlanner/actions/workflows/ci.yml)
 
 PacePlanner 是給跑團教練用的 Windows 桌面小工具。匯入賽道 GPX 後，選擇距離、目標時間和配速策略，就能算出**每公里配速表**，並匯出 CSV 或可列印的 A4 口袋配速卡。全程離線運作，不呼叫任何網路服務。
 
@@ -28,8 +28,8 @@ PacePlanner 是給跑團教練用的 Windows 桌面小工具。匯入賽道 GPX 
 **需求**：Windows 10 1809（17763）以上、x64、[.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)。不需要 Visual Studio，也不需要另外安裝 Windows App SDK Runtime（已以 self-contained 方式隨程式附帶）。
 
 ```powershell
-git clone https://github.com/<OWNER>/<REPO>.git
-cd <REPO>
+git clone https://github.com/hn83320589/PacePlanner.git
+cd PacePlanner
 
 dotnet build PacePlanner.sln -c Release   # 建置全部專案
 dotnet test  PacePlanner.sln -c Release   # 執行單元測試
