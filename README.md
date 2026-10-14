@@ -142,6 +142,12 @@ GPS 量到的距離通常和官方距離不同（例如 42.6 km 對 42.195 km）
 | `noisy-gps-3k.gpx` | 海拔與座標雜訊、部分點缺海拔、沒有時間 |
 | `no-elevation-5k.gpx` | 完全沒有海拔 |
 
+## 測試
+
+* 單元測試：`dotnet test PacePlanner.sln -c Release`
+* UI 端對端測試（實際操作 App、匯出 CSV/HTML 並驗證）：`powershell -NoProfile -ExecutionPolicy Bypass -File tests/e2e/Run-E2E.ps1`
+* 測試計畫：[`docs/test-plan.md`](docs/test-plan.md)；最近一次執行結果：[`docs/test-report.md`](docs/test-report.md)
+
 ## 驗收標準對照
 
 | # | 標準 | 驗證方式 |
